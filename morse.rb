@@ -43,4 +43,9 @@ def char_splitter(words)
   converted.join(' ')
 end
 
-# Add code here
+def word_splitter(sentence)
+  words = sentence.split('   ')
+  res = char_splitter(words)
+  puts(res)
+end
+word_splitter('.-   -... --- -..-   ..-. ..- .-.. .-..   --- ..-.   .-. ..- -... .. . ...')
