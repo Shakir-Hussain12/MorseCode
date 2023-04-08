@@ -27,7 +27,7 @@ M_CODES = {
   '--..' => 'Z'
 }.freeze
 
-@morse = false
+$morse = false
 
 def char_splitter(words)
   converted = []
@@ -39,20 +39,20 @@ def char_splitter(words)
       M_CODES.each do |key, value|
         if c == key
           test.push(value)
-          @morse = false
+          $morse = false
         elsif c == value
           test.push(key)
-          @morse = true
+          $morse = true
         end
       end
     end
-    test = test.join if @morse == false
-    test = test.join(' ') if @morse == true
+    test = test.join if $morse == false
+    test = test.join(' ') if $morse == true
     converted[i] = test
     i += 1
   end
-  converted = converted.join(' ') if @morse == false
-  converted = converted.join('   ') if @morse == true
+  converted = converted.join(' ') if $morse == false
+  converted = converted.join('   ') if $morse == true
 
   converted
 end
