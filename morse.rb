@@ -27,6 +27,8 @@ M_CODES = {
   '--..' => 'Z'
 }.freeze
 
+@morse = false
+
 def char_splitter(words)
   converted = []
   i = 0
@@ -34,13 +36,25 @@ def char_splitter(words)
     chars = w.split
     test = []
     chars.each do |c|
-      test.push(M_CODES[c])
+      M_CODES.each do |key, value|
+        if c == key
+          test.push(value)
+          @morse = false
+        elsif c == value
+          test.push(key)
+          @morse = true
+        end
+      end
     end
-    test = test.join
+    test = test.join if @morse == false
+    test = test.join(' ') if @morse == true
     converted[i] = test
     i += 1
   end
-  converted.join(' ')
+  converted = converted.join(' ') if @morse == false
+  converted = converted.join('   ') if @morse == true
+
+  converted
 end
 
 def word_splitter(sentence)
@@ -48,4 +62,6 @@ def word_splitter(sentence)
   res = char_splitter(words)
   puts(res)
 end
+
 word_splitter('.-   -... --- -..-   ..-. ..- .-.. .-..   --- ..-.   .-. ..- -... .. . ...')
+word_splitter('A   B O X   F U L L   O F   R U B I E S')
